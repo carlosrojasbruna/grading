@@ -1,1 +1,270 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corrección — Estudiante 01 — Álgebra Lineal MAT1224</title>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea'] }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  :root{
+    --bg:#f4f6fb; --card:#ffffff; --ink:#1f2430; --muted:#6b7280; --line:#e6e9f0;
+    --green:#16a34a; --green-bg:#e7f6ec; --amber:#d97706; --amber-bg:#fdf1df;
+    --red:#dc2626; --red-bg:#fdeaea; --blue:#2563eb; --blue-bg:#e8effe;
+    --violet:#7c3aed; --violet-bg:#f0e9fd;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:28px 20px 60px}
+  header.top{background:linear-gradient(135deg,#1e293b,#334155);color:#fff;border-radius:18px;
+    padding:26px 28px;box-shadow:0 10px 30px rgba(30,41,59,.18)}
+  header.top h1{margin:0 0 4px;font-size:20px;font-weight:700}
+  header.top .sub{opacity:.85;font-size:14px}
+  .hero{display:flex;flex-wrap:wrap;gap:22px;align-items:center;margin-top:20px}
+  .gauge{position:relative;width:120px;height:120px;border-radius:50%;flex:0 0 auto;
+    background:conic-gradient(#38bdf8 calc(var(--p)*1%), rgba(255,255,255,.18) 0)}
+  .gauge::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#26334a}
+  .gauge .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;z-index:2}
+  .gauge .val b{font-size:26px;line-height:1}
+  .gauge .val span{font-size:12px;opacity:.85}
+  .hero .facts{flex:1 1 240px}
+  .hero .facts .big{font-size:15px;margin:0 0 6px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .chip{font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.14)}
+  .note{margin:22px 0 8px;color:var(--muted);font-size:13px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;margin:16px 0;
+    overflow:hidden;box-shadow:0 2px 10px rgba(31,36,48,.04)}
+  .qhead{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:18px 20px}
+  .qhead .qt{flex:1 1 220px}
+  .qhead .qt h2{margin:0;font-size:16px}
+  .qhead .qt .qd{color:var(--muted);font-size:12.5px;margin-top:2px}
+  .score{font-size:22px;font-weight:800;white-space:nowrap}
+  .score small{font-size:13px;font-weight:600;color:var(--muted)}
+  .bar{height:8px;background:#eef1f6;border-radius:999px;overflow:hidden;margin:0 20px}
+  .bar>i{display:block;height:100%;border-radius:999px}
+  .badges{display:flex;flex-wrap:wrap;gap:8px;padding:14px 20px 4px}
+  .b{font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:8px;display:inline-flex;gap:5px;align-items:center}
+  .b.route-rapida{background:var(--amber-bg);color:var(--amber)}
+  .b.route-completa{background:var(--red-bg);color:var(--red)}
+  .b.route-auto{background:var(--green-bg);color:var(--green)}
+  .b.conf{background:var(--blue-bg);color:var(--blue)}
+  .b.sympy{background:var(--green-bg);color:var(--green)}
+  .b.exc{background:var(--violet-bg);color:var(--violet)}
+  .items{padding:6px 20px 18px}
+  .item{border-top:1px solid var(--line);padding:14px 0}
+  .item:first-child{border-top:none}
+  .irow{display:flex;gap:12px;align-items:center}
+  .ipill{font-weight:800;font-size:13px;padding:3px 9px;border-radius:8px;white-space:nowrap}
+  .ipill.g{background:var(--green-bg);color:var(--green)}
+  .ipill.a{background:var(--amber-bg);color:var(--amber)}
+  .ipill.r{background:var(--red-bg);color:var(--red)}
+  .iname{font-weight:700;font-size:14px}
+  .imeta{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  .tiny{font-size:11px;font-weight:700;padding:3px 7px;border-radius:7px}
+  .tiny.sympy{background:var(--green-bg);color:var(--green)}
+  .tiny.conf{background:#eef1f6;color:var(--muted)}
+  .miss{margin:8px 0 0;font-size:13px;color:#8a4b0b;background:var(--amber-bg);
+    border-radius:10px;padding:8px 11px}
+  .miss.none{background:var(--red-bg);color:#9b1c1c}
+  details{margin-top:8px}
+  details summary{cursor:pointer;font-size:12.5px;color:var(--blue);font-weight:600;list-style:none}
+  details summary::-webkit-details-marker{display:none}
+  details summary::before{content:"▸ ";}
+  details[open] summary::before{content:"▾ ";}
+  .ev{font-size:13px;color:#374151;background:#f8fafc;border:1px solid var(--line);
+    border-radius:10px;padding:10px 12px;margin-top:8px;line-height:1.6}
+  .legend{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-top:22px;font-size:13px}
+  .legend h3{margin:0 0 8px;font-size:14px}
+  .legend p{margin:5px 0;color:#374151}
+  footer{color:var(--muted);font-size:12px;margin-top:22px;text-align:center}
+  mjx-container{overflow-x:auto;overflow-y:hidden}
+  @media (max-width:520px){ .score{font-size:19px} }
+</style>
+</head>
+<body>
+<div class="wrap">
 
+  <header class="top">
+    <h1>Corrección automatizada — Examen Final</h1>
+    <div class="sub">Álgebra Lineal · MAT1224 · 2026-1 &nbsp;•&nbsp; Estudiante 01 — Berríos Gálvez, José</div>
+    <div class="hero">
+      <div class="gauge" style="--p:63"><div class="val"><b>75</b><span>/ 120</span></div></div>
+      <div class="facts">
+        <p class="big"><b>Nota provisional:</b> 75 / 120 &nbsp;(62%)&nbsp; — sujeta a revisión</p>
+        <p class="big" style="opacity:.85">4 / 4 preguntas leídas y calificadas · 0 auto-entregadas (todas a revisión)</p>
+        <div class="chips">
+          <span class="chip">🔎 7 ítems verificados con SymPy</span>
+          <span class="chip">📖 conf. lectura media 0.69</span>
+          <span class="chip">🧠 Lectura: Claude Vision</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <p class="note">Cada pregunta muestra la nota propuesta, la confiabilidad de la corrección (1–10),
+  la verificación objetiva con SymPy y la evidencia citada. Nada se entrega automáticamente por
+  debajo de confiabilidad 9: todo está en cola de revisión para tu confirmación.</p>
+
+  <!-- ============ P1 ============ -->
+  <section class="card">
+    <div class="qhead">
+      <div class="qt"><h2>P1 — Dualidad: base dual y transpuesta</h2>
+        <div class="qd">Base dual, matriz de $T$ y de la transpuesta, eigenvalores de $T'$</div></div>
+      <div class="score">27<small> / 32</small></div>
+    </div>
+    <div class="bar"><i style="width:84%;background:var(--green)"></i></div>
+    <div class="badges">
+      <span class="b route-rapida">🟠 Revisión rápida</span>
+      <span class="b conf">Confiabilidad 8/10</span>
+      <span class="b sympy">✓ SymPy: P1.a, P1.b, P1.c</span>
+      <span class="b exc">⚑ E6 · camino alternativo</span>
+    </div>
+    <div class="items">
+      <div class="item">
+        <div class="irow"><span class="ipill a">5/8</span><span class="iname">P1.a · Base dual</span>
+          <span class="imeta"><span class="tiny sympy">✓ SymPy</span><span class="tiny conf">conf 9</span></span></div>
+        <div class="miss">Falta: no verifica explícitamente $f_i(b_j) = \delta_{ij}$ (la rúbrica pide esa comprobación para los 4 pts del tercer criterio).</div>
+        <details><summary>Ver evidencia</summary><div class="ev">Independencia lineal: $b+c=0 \Rightarrow b=-c$,&nbsp; $a+b=0$,&nbsp; $a+c=0$, luego $2a=0 \Rightarrow a=b=c=0$, así $B$ es base.<br>
+        Funcionales duales: $f_1=\dfrac{b-a+c}{2}$,&nbsp; $f_2=\dfrac{b+a-c}{2}$,&nbsp; $f_3=\dfrac{a-b+c}{2}$.<br>
+        SymPy: $\det M = 2$ y las filas de $M^{-1}$ dan $f_1,f_2,f_3$ &nbsp;→&nbsp; coincide.</div></details>
+      </div>
+      <div class="item">
+        <div class="irow"><span class="ipill g">6/6</span><span class="iname">P1.b · Matriz $[T]_B$</span>
+          <span class="imeta"><span class="tiny sympy">✓ SymPy</span><span class="tiny conf">conf 9</span></span></div>
+        <details><summary>Ver evidencia</summary><div class="ev">$T(1+x)=2+x$,&nbsp; $T(x+x^2)=x^2+3x+1$,&nbsp; $T(1+x^2)=x^2+2x+1$
+        $$[T]_B=\begin{bmatrix}\tfrac32&\tfrac32&1\\[2pt]-\tfrac12&\tfrac32&1\\[2pt]\tfrac12&-\tfrac12&0\end{bmatrix}$$
+        SymPy coincide.</div></details>
+      </div>
+      <div class="item">
+        <div class="irow"><span class="ipill g">9/9</span><span class="iname">P1.c · Transpuesta $[T']_{B'}$</span>
+          <span class="imeta"><span class="tiny sympy">✓ SymPy</span><span class="tiny conf">conf 9</span></span></div>
+        <details><summary>Ver evidencia</summary><div class="ev">Calcula $T'(f_j)=f_j\circ T$ y verifica explícitamente $[T']_{B'} = ([T]_B)^{t}$.
+        $$[T']_{B'}=\begin{bmatrix}\tfrac32&-\tfrac12&\tfrac12\\[2pt]\tfrac32&\tfrac32&-\tfrac12\\[2pt]1&1&0\end{bmatrix}$$
+        SymPy coincide.</div></details>
+      </div>
+      <div class="item">
+        <div class="irow"><span class="ipill a">7/9</span><span class="iname">P1.d · Eigenvalores de $T'$ (demostración)</span>
+          <span class="imeta"><span class="tiny conf">conceptual · conf 8</span></span></div>
+        <div class="miss">Falta: no cierra la conclusión ($\det([S']-cI)=0 \Rightarrow c$ eigenvalor de $S'$); la cadena tiene saltos y zonas [ilegible].</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P2 ============ -->
+  <section class="card">
+    <div class="qhead">
+      <div class="qt"><h2>P2 — Espacios cociente</h2>
+        <div class="qd">Subespacio $W$, aplicación $\varphi$, isomorfismo $V/W \cong \mathbb{R}^2$ e inversa</div></div>
+      <div class="score">23<small> / 24</small></div>
+    </div>
+    <div class="bar"><i style="width:96%;background:var(--green)"></i></div>
+    <div class="badges">
+      <span class="b route-rapida">🟠 Revisión rápida</span>
+      <span class="b conf">Confiabilidad 8/10</span>
+      <span class="b exc">⚑ E6 · camino alternativo (1er teorema de isomorfía)</span>
+    </div>
+    <div class="items">
+      <div class="item"><div class="irow"><span class="ipill g">5/5</span><span class="iname">P2.a · $W$ subespacio, base, dim</span>
+        <span class="imeta"><span class="tiny conf">conf 9</span></span></div>
+        <details><summary>Ver evidencia</summary><div class="ev">Prueba las 3 condiciones de subespacio, $W = \operatorname{gen}\{x^2, x^3\}$, base $\{x^2, x^3\}$, $\dim W = 2$.</div></details></div>
+      <div class="item"><div class="irow"><span class="ipill g">6/6</span><span class="iname">P2.b · $\varphi$ lineal, núcleo, sobre</span>
+        <span class="imeta"><span class="tiny conf">conf 9</span></span></div>
+        <details><summary>Ver evidencia</summary><div class="ev">Linealidad $\varphi(P+kQ)=\varphi(P)+k\varphi(Q)$;&nbsp; $\ker\varphi = W$;&nbsp; sobreyectiva con $p = v_2\,x + v_1$.</div></details></div>
+      <div class="item"><div class="irow"><span class="ipill a">7/8</span><span class="iname">P2.c · $\tilde{\varphi}$ bien definida, isomorfismo</span>
+        <span class="imeta"><span class="tiny conf">conf 8</span></span></div>
+        <div class="miss">Falta: la linealidad de $\tilde{\varphi}$ no se prueba explícitamente (aunque se hereda de $\varphi$). Usó el 1er teorema de isomorfía (camino alternativo válido).</div></div>
+      <div class="item"><div class="irow"><span class="ipill g">5/5</span><span class="iname">P2.d · Base de $V/W$ e inversa</span>
+        <span class="imeta"><span class="tiny conf">conf 9</span></span></div>
+        <details><summary>Ver evidencia</summary><div class="ev">Base $\{1+W,\ x+W\}$, $\dim(V/W)=2$;&nbsp; $\tilde{\varphi}^{-1}(v_1,v_2)=(v_2\,x+v_1)+W$ verificada en ambos sentidos.</div></details></div>
+    </div>
+  </section>
+
+  <!-- ============ P3 ============ -->
+  <section class="card">
+    <div class="qhead">
+      <div class="qt"><h2>P3 — Proyecciones espectrales y exponencial</h2>
+        <div class="qd">Matriz hermitiana $A$, eigenvalores/eigenespacios, proyecciones, $A^n$ y $e^{tA}$</div></div>
+      <div class="score">3<small> / 32</small></div>
+    </div>
+    <div class="bar"><i style="width:9%;background:var(--red)"></i></div>
+    <div class="badges">
+      <span class="b route-rapida">🟠 Revisión rápida</span>
+      <span class="b conf">Confiabilidad 7/10</span>
+      <span class="b sympy">✓ SymPy: P3.a, P3.b</span>
+      <span class="b exc">⚑ E5 · follow-through</span>
+    </div>
+    <div class="items">
+      <div class="item"><div class="irow"><span class="ipill a">3/5</span><span class="iname">P3.a · Hermiticidad y eigenvalores</span>
+        <span class="imeta"><span class="tiny sympy">✓ SymPy</span><span class="tiny conf">conf 9</span></span></div>
+        <div class="miss">Error aritmético detectado: escribió $(1+i-i+1)$ al expandir $(1-i)(1+i)$; debía mostrar $1-i^2=2$. Llegó a $\lambda = 1,\,4$ (correcto) pero con paso intermedio errado.</div></div>
+      <div class="item"><div class="irow"><span class="ipill r">0/12</span><span class="iname">P3.b · Eigenespacios y proyecciones</span>
+        <span class="imeta"><span class="tiny sympy">✓ SymPy</span><span class="tiny conf">conf 8</span></span></div>
+        <div class="miss none">Solo alcanzó a escribir $V(1;A)=\operatorname{Gen}\{[1,\,-\tfrac{1+i}{2}]^{t}\}$ y se detuvo. No calculó las proyecciones $P_4, P_1$ ni sus propiedades.</div></div>
+      <div class="item"><div class="irow"><span class="ipill r">0/7</span><span class="iname">P3.c · $P_4P_1=0$ y $A^n$</span>
+        <span class="imeta"><span class="tiny conf">conf 7</span></span></div>
+        <div class="miss none">Sin desarrollo: la transcripción solo contiene a) y el inicio de b).</div></div>
+      <div class="item"><div class="irow"><span class="ipill r">0/8</span><span class="iname">P3.d · Exponencial $e^{tA}$</span>
+        <span class="imeta"><span class="tiny conf">conf 8</span></span></div>
+        <div class="miss none">Sin desarrollo: el alumno no llegó a este inciso.</div></div>
+    </div>
+  </section>
+
+  <!-- ============ P4 ============ -->
+  <section class="card">
+    <div class="qhead">
+      <div class="qt"><h2>P4 — Forma de Jordan: lectura de invariantes</h2>
+        <div class="qd">Invariantes de Jordan, nilpotente $6\times 6$ por rangos, y todas las formas dadas $p_T$ y $m_T$</div></div>
+      <div class="score">22<small> / 32</small></div>
+    </div>
+    <div class="bar"><i style="width:69%;background:var(--amber)"></i></div>
+    <div class="badges">
+      <span class="b route-rapida">🟠 Revisión rápida</span>
+      <span class="b conf">Confiabilidad 7/10</span>
+      <span class="b sympy">✓ SymPy: P4.b, P4.c</span>
+      <span class="b exc">⚑ E6 · camino alternativo</span>
+    </div>
+    <div class="items">
+      <div class="item"><div class="irow"><span class="ipill a">6/12</span><span class="iname">P4.a · Lectura de invariantes (demostración)</span>
+        <span class="imeta"><span class="tiny conf">conceptual · conf 7</span></span></div>
+        <div class="miss">Falta rigor: no analiza $\dim\ker(J(\lambda;k)-\lambda I)=1$ por bloque, ni que los bloques de $\mu\neq\lambda$ no aportan, ni la nilpotencia de índice $k$ formalmente.</div></div>
+      <div class="item"><div class="irow"><span class="ipill a">6/10</span><span class="iname">P4.b · Nilpotente $6\times 6 \to$ forma de Jordan</span>
+        <span class="imeta"><span class="tiny sympy">✓ SymPy</span><span class="tiny conf">conf 8</span></span></div>
+        <div class="miss">Conclusión correcta $J(0;3)\oplus J(0;2)\oplus J(0;1)$, pero no registra la secuencia de rangos $r=(6,3,1,0)$ ni la fórmula $r_{j-1}-r_j$.</div>
+        <details><summary>Ver evidencia</summary><div class="ev">$A$ 3-nilpotente, $\operatorname{nul}(A)=3 \Rightarrow$ 3 bloques;&nbsp; $m_A(t)=t^3 \Rightarrow$ mayor bloque $3\times 3$
+        $$J_A = J(0;3)\oplus J(0;2)\oplus J(0;1)$$
+        SymPy: tamaños de bloque $\{3,2,1\}$ → coincide.</div></details></div>
+      <div class="item"><div class="irow"><span class="ipill g">10/10</span><span class="iname">P4.c · Todas las formas de Jordan</span>
+        <span class="imeta"><span class="tiny sympy">✓ SymPy</span><span class="tiny conf">conf 9</span></span></div>
+        <details><summary>Ver evidencia</summary><div class="ev">De $m_T$: el mayor bloque de $\lambda=2$ es $2$ y el de $\lambda=-3$ es $1$.<br>
+        $\lambda=-3 \to J(-3;1)\oplus J(-3;1)$.&nbsp; $\lambda=2 \to (2,2)$ o $(2,1,1)$. Dos formas posibles.<br>
+        SymPy: particiones $[\{2:2\},\{2:1,1:2\}]$ y $[\{1:2\}]$ → coincide.</div></details></div>
+    </div>
+  </section>
+
+  <div class="legend">
+    <h3>Cómo leer este informe</h3>
+    <p><b>Confiabilidad (1–10):</b> cuánto confía el sistema en su propia corrección (no es la nota del alumno). $\ge 9$ = auto-entrega · 7–8 = revisión rápida · $&lt;7$ = revisión completa.</p>
+    <p><b>✓ SymPy:</b> el resultado objetivo se recomputó simbólicamente y coincide con lo del alumno.</p>
+    <p><b>⚑ E6 — camino alternativo:</b> el alumno resolvió por una vía válida no listada en la rúbrica; se marca para que la confirmes y, si procede, se agregue a la rúbrica (y pase a AUTO).</p>
+    <p><b>⚑ E5 — follow-through:</b> un error previo se arrastra y se penaliza una sola vez.</p>
+  </div>
+
+  <footer>
+    Corrección auditable · Lectura: Claude Vision · Verificación objetiva: SymPy · Segmentación por contenido.<br>
+    Generado por el pipeline GRADING TEST — MAT1224.
+  </footer>
+
+</div>
+</body>
+</html>
