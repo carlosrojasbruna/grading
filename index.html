@@ -43,6 +43,7 @@
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
   .chip{font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.14)}
   .note{margin:22px 0 8px;color:var(--muted);font-size:13px}
+  .section-title{font-size:17px;margin:30px 0 4px;font-weight:700}
   .card{background:var(--card);border:1px solid var(--line);border-radius:16px;margin:16px 0;
     overflow:hidden;box-shadow:0 2px 10px rgba(31,36,48,.04)}
   .qhead{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:18px 20px}
@@ -69,10 +70,12 @@
   .ipill.g{background:var(--green-bg);color:var(--green)}
   .ipill.a{background:var(--amber-bg);color:var(--amber)}
   .ipill.r{background:var(--red-bg);color:var(--red)}
+  .ipill.n{background:#eef1f6;color:var(--ink)}
   .iname{font-weight:700;font-size:14px}
   .imeta{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
   .tiny{font-size:11px;font-weight:700;padding:3px 7px;border-radius:7px}
   .tiny.sympy{background:var(--green-bg);color:var(--green)}
+  .tiny.concept{background:var(--violet-bg);color:var(--violet)}
   .tiny.conf{background:#eef1f6;color:var(--muted)}
   .miss{margin:8px 0 0;font-size:13px;color:#8a4b0b;background:var(--amber-bg);
     border-radius:10px;padding:8px 11px}
@@ -84,6 +87,22 @@
   details[open] summary::before{content:"▾ ";}
   .ev{font-size:13px;color:#374151;background:#f8fafc;border:1px solid var(--line);
     border-radius:10px;padding:10px 12px;margin-top:8px;line-height:1.6}
+  /* Rúbrica */
+  .rubric details{margin:0;border-top:1px solid var(--line)}
+  .rubric details:first-of-type{border-top:none}
+  .rsum{padding:15px 20px;font-size:14.5px;color:var(--ink)}
+  .rsum b{font-weight:700}
+  .rsum .rpts{color:var(--muted);font-weight:600;font-size:12.5px}
+  .ritems{padding:0 20px 12px}
+  .ritem{border-top:1px dashed var(--line);padding:13px 0}
+  .rhead{font-size:14px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+  .rhead .rdesc{flex:1 1 auto}
+  .rlist{font-size:12.8px;margin-top:7px}
+  .rlist .lab{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted)}
+  .rlist ul{margin:3px 0 0;padding-left:18px}
+  .rlist li{margin:3px 0}
+  .rlist .pts{color:var(--green);font-weight:700}
+  .rlist.err .pen{color:var(--red);font-weight:700}
   .legend{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-top:22px;font-size:13px}
   .legend h3{margin:0 0 8px;font-size:14px}
   .legend p{margin:5px 0;color:#374151}
@@ -112,6 +131,7 @@
     </div>
   </header>
 
+  <h2 class="section-title">Resultado de la corrección</h2>
   <p class="note">Cada pregunta muestra la nota propuesta, la confiabilidad de la corrección (1–10),
   la verificación objetiva con SymPy y la evidencia citada. Nada se entrega automáticamente por
   debajo de confiabilidad 9: todo está en cola de revisión para tu confirmación.</p>
@@ -250,6 +270,229 @@
         $\lambda=-3 \to J(-3;1)\oplus J(-3;1)$.&nbsp; $\lambda=2 \to (2,2)$ o $(2,1,1)$. Dos formas posibles.<br>
         SymPy: particiones $[\{2:2\},\{2:1,1:2\}]$ y $[\{1:2\}]$ → coincide.</div></details></div>
     </div>
+  </section>
+
+  <!-- ============ RÚBRICA ============ -->
+  <h2 class="section-title">Rúbrica de evaluación · 120 pts · 15 ítems</h2>
+  <p class="note">La rúbrica ancla la corrección: por ítem define los criterios con su puntaje, las
+  soluciones alternativas válidas y los errores comunes con penalización. Los ítems
+  <span class="tiny sympy">✓ verificable</span> se recomputan simbólicamente con SymPy; los
+  <span class="tiny concept">conceptual</span> se evalúan por hitos de la demostración.</p>
+
+  <section class="card rubric">
+
+    <!-- P1 -->
+    <details>
+      <summary class="rsum"><b>P1 — Dualidad: base dual y transpuesta</b> <span class="rpts">· 32 pts · 4 ítems</span></summary>
+      <div class="ritems">
+        <div class="ritem">
+          <div class="rhead"><span class="ipill n">8 pts</span><b>P1.a</b> <span class="tiny sympy">✓ verificable</span>
+            <span class="rdesc">Demostrar que $B$ es base y construir la base dual $B'=\{f_1,f_2,f_3\}$ con fórmula explícita.</span></div>
+          <div class="rlist"><span class="lab">Criterios</span><ul>
+            <li>Muestra que $B$ es base ($\det M = 2 \neq 0$). <span class="pts">[2]</span></li>
+            <li>Obtiene $[p]_B = M^{-1}a$ y calcula $M^{-1}$. <span class="pts">[2]</span></li>
+            <li>Da las 3 fórmulas explícitas y verifica $f_i(b_j)=\delta_{ij}$. <span class="pts">[4]</span></li></ul></div>
+          <div class="rlist err"><span class="lab">Errores comunes</span><ul>
+            <li>Afirma que $B$ es base sin justificar. <span class="pen">−2</span></li>
+            <li>Confunde la base dual con $B$ (da polinomios, no funcionales). <span class="pen">−4</span></li>
+            <li>Define $f_i$ solo por $\delta_{ij}$ sin la fórmula explícita. <span class="pen">−3</span></li>
+            <li>Error aritmético al invertir $M$. <span class="pen">−2</span></li></ul></div>
+        </div>
+        <div class="ritem">
+          <div class="rhead"><span class="ipill n">6 pts</span><b>P1.b</b> <span class="tiny sympy">✓ verificable</span>
+            <span class="rdesc">Determinar la matriz $[T]_B$ de $T$ respecto de la base $B$.</span></div>
+          <div class="rlist"><span class="lab">Criterios</span><ul>
+            <li>Obtiene $[T]_E=\begin{bmatrix}1&1&0\\0&1&2\\0&0&1\end{bmatrix}$. <span class="pts">[2]</span></li>
+            <li>Cambia de base: $[T]_B = M^{-1}[T]_E\,M$. <span class="pts">[2]</span></li>
+            <li>Entrega $[T]_B=\begin{bmatrix}\tfrac32&\tfrac32&1\\-\tfrac12&\tfrac32&1\\\tfrac12&-\tfrac12&0\end{bmatrix}$. <span class="pts">[2]</span></li></ul></div>
+          <div class="rlist err"><span class="lab">Errores comunes</span><ul>
+            <li>Deriva mal ($T(x^2)=x^2+x$). <span class="pen">−2</span></li>
+            <li>Usa $M$ y $M^{-1}$ intercambiadas. <span class="pen">−3</span></li>
+            <li>Coloca las imágenes por filas en vez de columnas. <span class="pen">−2</span></li></ul></div>
+        </div>
+        <div class="ritem">
+          <div class="rhead"><span class="ipill n">9 pts</span><b>P1.c</b> <span class="tiny sympy">✓ verificable</span>
+            <span class="rdesc">Calcular $[T']_{B'}$ en la base dual y verificar $[T']_{B'}=([T]_B)^{t}$.</span></div>
+          <div class="rlist"><span class="lab">Criterios</span><ul>
+            <li>Usa $T'(f_j)=f_j\circ T$ para las tres imágenes. <span class="pts">[3]</span></li>
+            <li>Reúne $[T']_{B'}=\begin{bmatrix}\tfrac32&-\tfrac12&\tfrac12\\\tfrac32&\tfrac32&-\tfrac12\\1&1&0\end{bmatrix}$. <span class="pts">[2]</span></li>
+            <li>Verifica la identidad de transposición. <span class="pts">[4]</span></li></ul></div>
+          <div class="rlist err"><span class="lab">Errores comunes</span><ul>
+            <li>No transpone (confunde filas y columnas). <span class="pen">−3</span></li>
+            <li>Afirma la identidad sin verificarla. <span class="pen">−3</span></li>
+            <li>Aplica mal $T'(f)=f\circ T$ (orden equivocado). <span class="pen">−4</span></li></ul></div>
+        </div>
+        <div class="ritem">
+          <div class="rhead"><span class="ipill n">9 pts</span><b>P1.d</b> <span class="tiny concept">conceptual</span>
+            <span class="rdesc">Demostrar: si $c$ es eigenvalor de $S$, entonces $c$ es eigenvalor de $S'$.</span></div>
+          <div class="rlist"><span class="lab">Criterios</span><ul>
+            <li>$c$ eigenvalor $\Leftrightarrow S-c\,\mathrm{id}$ no invertible. <span class="pts">[3]</span></li>
+            <li>$\det(S'-c\,\mathrm{id})=\det(S-c\,\mathrm{id})$ vía transposición. <span class="pts">[4]</span></li>
+            <li>Concluye que $c$ es eigenvalor de $S'$. <span class="pts">[2]</span></li></ul></div>
+          <div class="rlist err"><span class="lab">Errores comunes</span><ul>
+            <li>Prueba solo una dirección. <span class="pen">−2</span></li>
+            <li>Usa que $S,S'$ comparten eigenvalores sin justificar. <span class="pen">−4</span></li>
+            <li>Confunde no inyectividad con no sobreyectividad sin dim finita. <span class="pen">−3</span></li>
+            <li>Afirma que el eigenvector de $S$ lo es de $S'$. <span class="pen">−3</span></li></ul></div>
+        </div>
+      </div>
+    </details>
+
+    <!-- P2 -->
+    <details>
+      <summary class="rsum"><b>P2 — Espacios cociente</b> <span class="rpts">· 24 pts · 4 ítems</span></summary>
+      <div class="ritems">
+        <div class="ritem">
+          <div class="rhead"><span class="ipill n">5 pts</span><b>P2.a</b> <span class="tiny concept">conceptual</span>
+            <span class="rdesc">Demostrar que $W$ es subespacio, dar una base y $\dim W$.</span></div>
+          <div class="rlist"><span class="lab">Criterios</span><ul>
+            <li>$W$ subespacio ($0\in W$, condiciones lineales). <span class="pts">[2]</span></li>
+            <li>$p\in W \Leftrightarrow W=\operatorname{gen}\{x^2,x^3\}$. <span class="pts">[2]</span></li>
+            <li>Base $\{x^2,x^3\}$, $\dim W=2$. <span class="pts">[1]</span></li></ul></div>
+          <div class="rlist err"><span class="lab">Errores comunes</span><ul>
+            <li>Verifica cierre solo con un ejemplo numérico. <span class="pen">−2</span></li>
+            <li>Confunde "ser subespacio" con contener el $0$. <span class="pen">−2</span></li>
+            <li>Incluye $x$ o $1$ en la base. <span class="pen">−2</span></li></ul></div>
+        </div>
+        <div class="ritem">
+          <div class="rhead"><span class="ipill n">6 pts</span><b>P2.b</b> <span class="tiny concept">conceptual</span>
+            <span class="rdesc">$\varphi(p)=(p(0),p'(0))$ lineal, $\ker\varphi=W$ y sobreyectiva.</span></div>
+          <div class="rlist"><span class="lab">Criterios</span><ul>
+            <li>Linealidad. <span class="pts">[2]</span></li>
+            <li>$\ker\varphi=W$. <span class="pts">[2]</span></li>
+            <li>Sobreyectiva: $p=\alpha+\beta x$. <span class="pts">[2]</span></li></ul></div>
+          <div class="rlist err"><span class="lab">Errores comunes</span><ul>
+            <li>Linealidad solo para la suma. <span class="pen">−1</span></li>
+            <li>Una preimagen sin cubrir todo $\mathbb{R}^2$. <span class="pen">−2</span></li>
+            <li>Confunde $\ker\varphi$ con $\operatorname{Im}\varphi$. <span class="pen">−3</span></li></ul></div>
+        </div>
+        <div class="ritem">
+          <div class="rhead"><span class="ipill n">8 pts</span><b>P2.c</b> <span class="tiny concept">conceptual</span>
+            <span class="rdesc">$\tilde{\varphi}(p+W)=\varphi(p)$ bien definida y es isomorfismo.</span></div>
+          <div class="rlist"><span class="lab">Criterios</span><ul>
+            <li>Bien definida: $p+W=q+W\Rightarrow\varphi(p)=\varphi(q)$. <span class="pts">[4]</span></li>
+            <li>Lineal e inyectiva ($\ker\tilde{\varphi}=0$). <span class="pts">[2]</span></li>
+            <li>Sobreyectiva; isomorfismo. <span class="pts">[2]</span></li></ul></div>
+          <div class="rlist err"><span class="lab">Errores comunes</span><ul>
+            <li>Omite la buena definición (el punto central). <span class="pen">−4</span></li>
+            <li>Biyectividad sin justificar la buena definición. <span class="pen">−3</span></li>
+            <li>Confunde "bien definida" con "lineal". <span class="pen">−2</span></li></ul></div>
+        </div>
+        <div class="ritem">
+          <div class="rhead"><span class="ipill n">5 pts</span><b>P2.d</b> <span class="tiny concept">conceptual</span>
+            <span class="rdesc">Base de $V/W$, $\dim(V/W)$ e inversa $\tilde{\varphi}^{-1}$ verificada.</span></div>
+          <div class="rlist"><span class="lab">Criterios</span><ul>
+            <li>Base $\{1+W,x+W\}$, $\dim(V/W)=2$. <span class="pts">[2]</span></li>
+            <li>$\tilde{\varphi}^{-1}(\alpha,\beta)=(\alpha+\beta x)+W$, verificada en ambos sentidos. <span class="pts">[3]</span></li></ul></div>
+          <div class="rlist err"><span class="lab">Errores comunes</span><ul>
+            <li>Base con representantes que están en $W$. <span class="pen">−2</span></li>
+            <li>Define la inversa sin verificarla. <span class="pen">−2</span></li>
+            <li>Olvida las clases $+W$. <span class="pen">−1</span></li></ul></div>
+        </div>
+      </div>
+    </details>
+
+    <!-- P3 -->
+    <details>
+      <summary class="rsum"><b>P3 — Proyecciones espectrales y exponencial</b> <span class="rpts">· 32 pts · 4 ítems</span></summary>
+      <div class="ritems">
+        <div class="ritem">
+          <div class="rhead"><span class="ipill n">5 pts</span><b>P3.a</b> <span class="tiny sympy">✓ verificable</span>
+            <span class="rdesc">Verificar que $A$ es hermitiana y hallar sus eigenvalores.</span></div>
+          <div class="rlist"><span class="lab">Criterios</span><ul>
+            <li>$A^{*}=A$ (diagonal real, $\overline{1-i}=1+i$). <span class="pts">[2]</span></li>
+            <li>$\operatorname{tr}A=5$, $\det A=4$, $p_A=(\lambda-4)(\lambda-1)$; $\lambda=4,1$. <span class="pts">[3]</span></li></ul></div>
+          <div class="rlist err"><span class="lab">Errores comunes</span><ul>
+            <li>Calcula $(1-i)(1+i)$ mal. <span class="pen">−2</span></li>
+            <li>Afirma hermiticidad sin conjugar. <span class="pen">−1</span></li>
+            <li>Error de signo en el polinomio característico. <span class="pen">−1</span></li></ul></div>
+        </div>
+        <div class="ritem">
+          <div class="rhead"><span class="ipill n">12 pts</span><b>P3.b</b> <span class="tiny sympy">✓ verificable</span>
+            <span class="rdesc">Eigenespacios $W(4;A),W(1;A)$ y proyecciones ortogonales $P_4,P_1$.</span></div>
+          <div class="rlist"><span class="lab">Criterios</span><ul>
+            <li>$W(4;A)=\operatorname{gen}\{(1-i,2)\}$, $W(1;A)=\operatorname{gen}\{(-1+i,1)\}$. <span class="pts">[3]</span></li>
+            <li>Eigenespacios ortogonales, $\mathbb{C}^2=W(4)\oplus^\perp W(1)$. <span class="pts">[1]</span></li>
+            <li>$P_4=\tfrac13\begin{bmatrix}1&1-i\\1+i&2\end{bmatrix}$, $P_1=\tfrac13\begin{bmatrix}2&-1+i\\-1-i&1\end{bmatrix}$. <span class="pts">[3]</span></li>
+            <li>Justifica la acción sobre eigenespacios (sin circularidad). <span class="pts">[3]</span></li>
+            <li>Deduce $P^2=P$, $P^{*}=P$, $P_4+P_1=I$, $A=4P_4+P_1$. <span class="pts">[2]</span></li></ul></div>
+          <div class="rlist err"><span class="lab">Errores comunes</span><ul>
+            <li>Verifica por multiplicación directa (circularidad). <span class="pen">−3</span></li>
+            <li>Proyección no hermitiana ($vv^{t}$ en vez de $vv^{*}$). <span class="pen">−3</span></li>
+            <li>Eigenespacios intercambiados. <span class="pen">−2</span></li></ul></div>
+        </div>
+        <div class="ritem">
+          <div class="rhead"><span class="ipill n">7 pts</span><b>P3.c</b> <span class="tiny sympy">✓ verificable</span>
+            <span class="rdesc">Demostrar $P_4P_1=0$ y deducir $A^n=4^nP_4+P_1$.</span></div>
+          <div class="rlist"><span class="lab">Criterios</span><ul>
+            <li>Justifica $P_4P_1=P_1P_4=0$. <span class="pts">[3]</span></li>
+            <li>Expande $(4P_4+P_1)^n=4^nP_4+P_1$. <span class="pts">[4]</span></li></ul></div>
+          <div class="rlist err"><span class="lab">Errores comunes</span><ul>
+            <li>Asume $P_4P_1=0$ sin justificar. <span class="pen">−3</span></li>
+            <li>Binomio olvidando $P_4P_1=0$. <span class="pen">−3</span></li>
+            <li>No cubre el caso $n=0$. <span class="pen">−1</span></li></ul></div>
+        </div>
+        <div class="ritem">
+          <div class="rhead"><span class="ipill n">8 pts</span><b>P3.d</b> <span class="tiny sympy">✓ verificable</span>
+            <span class="rdesc">Deducir $e^{tA}=e^{4t}P_4+e^{t}P_1$ y dar la matriz explícita.</span></div>
+          <div class="rlist"><span class="lab">Criterios</span><ul>
+            <li>Sustituye $A^n$ en la serie: $e^{tA}=e^{4t}P_4+e^{t}P_1$. <span class="pts">[4]</span></li>
+            <li>Entrega la matriz explícita. <span class="pts">[4]</span></li></ul></div>
+          <div class="rlist err"><span class="lab">Errores comunes</span><ul>
+            <li>Intercambia $e^{t}P_4+e^{4t}P_1$. <span class="pen">−3</span></li>
+            <li>Deduce la forma pero no da la matriz. <span class="pen">−4</span></li>
+            <li>Error aritmético al ensamblar. <span class="pen">−2</span></li></ul></div>
+        </div>
+      </div>
+    </details>
+
+    <!-- P4 -->
+    <details>
+      <summary class="rsum"><b>P4 — Forma de Jordan: lectura de invariantes</b> <span class="rpts">· 32 pts · 3 ítems</span></summary>
+      <div class="ritems">
+        <div class="ritem">
+          <div class="rhead"><span class="ipill n">12 pts</span><b>P4.a</b> <span class="tiny concept">conceptual</span>
+            <span class="rdesc">Justificar: #bloques de $\lambda$ = $\dim\ker(T-\lambda I)$; mayor bloque = exponente en $m_T$.</span></div>
+          <div class="rlist"><span class="lab">Criterios (por hitos)</span><ul>
+            <li>$\dim\ker(J(\lambda;k)-\lambda I)=1$. <span class="pts">[2]</span></li>
+            <li>Suma sobre bloques $\Rightarrow$ contribución $=$ #bloques. <span class="pts">[2]</span></li>
+            <li>Bloques de $\mu\neq\lambda$ no aportan al núcleo. <span class="pts">[1]</span></li>
+            <li>Conclusión (i): #bloques $=\dim\ker(T-\lambda I)$. <span class="pts">[1]</span></li>
+            <li>$(T-\lambda I)$ nilpotente de índice $k$ en $J(\lambda;k)$. <span class="pts">[2]</span></li>
+            <li>Exponente de $(t-\lambda)$ en $m_T$ = máx. índice. <span class="pts">[3]</span></li>
+            <li>Conclusión (ii): exponente $=$ mayor bloque. <span class="pts">[1]</span></li></ul></div>
+          <div class="rlist err"><span class="lab">Errores comunes</span><ul>
+            <li>$\dim\ker$ por bloque $>1$. <span class="pen">−3</span></li>
+            <li>Confunde exponente en $m_T$ con multiplicidad en $p_T$. <span class="pen">−4</span></li>
+            <li>Enuncia los resultados sin analizar los bloques. <span class="pen">−5</span></li></ul></div>
+        </div>
+        <div class="ritem">
+          <div class="rhead"><span class="ipill n">10 pts</span><b>P4.b</b> <span class="tiny sympy">✓ verificable</span>
+            <span class="rdesc">$A\in\mathbb{C}^{6\times6}$, $A^3=O$, $\operatorname{rank}A=3$, $\operatorname{rank}A^2=1$: hallar la forma de Jordan.</span></div>
+          <div class="rlist"><span class="lab">Criterios</span><ul>
+            <li>$A$ nilpotente; rangos $r=(6,3,1,0)$. <span class="pts">[3]</span></li>
+            <li>#bloques $\ge j = r_{j-1}-r_j=(3,2,1)$ → tamaños $\{3,2,1\}$. <span class="pts">[4]</span></li>
+            <li>$J=J(0;3)\oplus J(0;2)\oplus J(0;1)$. <span class="pts">[3]</span></li></ul></div>
+          <div class="rlist err"><span class="lab">Errores comunes</span><ul>
+            <li>$r_{j-1}-r_j$ como bloques de tamaño exacto $j$. <span class="pen">−3</span></li>
+            <li>No verifica que los tamaños sumen $6$. <span class="pen">−2</span></li>
+            <li>Concluye eigenvalor $\neq 0$. <span class="pen">−3</span></li></ul></div>
+        </div>
+        <div class="ritem">
+          <div class="rhead"><span class="ipill n">10 pts</span><b>P4.c</b> <span class="tiny sympy">✓ verificable</span>
+            <span class="rdesc">$p_T=(t-2)^4(t+3)^2$, $m_T=(t-2)^2(t+3)$: todas las formas de Jordan.</span></div>
+          <div class="rlist"><span class="lab">Criterios</span><ul>
+            <li>Lee de $m_T$/$p_T$ mayor bloque y multiplicidades. <span class="pts">[4]</span></li>
+            <li>$\lambda=-3$: $J(-3;1)\oplus J(-3;1)$. <span class="pts">[2]</span></li>
+            <li>$\lambda=2$: $(2,2)$ y $(2,1,1)$ → dos formas. <span class="pts">[4]</span></li></ul></div>
+          <div class="rlist err"><span class="lab">Errores comunes</span><ul>
+            <li>Incluye $(1,1,1,1)$ para $\lambda=2$. <span class="pen">−3</span></li>
+            <li>Incluye $(3,1)$ o $(4)$ para $\lambda=2$. <span class="pen">−3</span></li>
+            <li>Confunde los roles de $p_T$ y $m_T$. <span class="pen">−4</span></li></ul></div>
+        </div>
+      </div>
+    </details>
+
   </section>
 
   <div class="legend">
