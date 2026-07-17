@@ -14,6 +14,9 @@ piloto de calibración y cómo replicarlo en otro examen.
 - [`index.html`](index.html) — versión web (servida con GitHub Pages).
 - [`blueprint_correccion.md`](blueprint_correccion.md) — el mismo documento, legible
   directamente en GitHub.
+- [`ejemplo_estudiante_01.html`](ejemplo_estudiante_01.html) — reporte completo de un
+  estudiante del piloto, tal como lo genera la Fase 6 (anonimizado): las 4 preguntas con
+  sus bandas, evidencia citada y verificación SymPy.
 
 Estado (julio 2026): 7 fases implementadas y operativas, 76 tests automatizados, piloto
 de calibración en curso contra corrección humana.

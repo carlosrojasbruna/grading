@@ -204,7 +204,8 @@ destinos distintos: P1 quedó en banda AUTO (confiabilidad 9/10, tres ítems con
 por SymPy); P3 quedó en cola de revisión rápida, con la excepción E5 registrada (error
 arrastrado) y dos ítems en 0 puntos donde no se encontró desarrollo, cada uno con el
 detalle de lo que falta según la pauta. Esa separación es la que organiza el trabajo del
-corrector.
+corrector. El reporte completo del que proviene el extracto está disponible en este
+repositorio: [`ejemplo_estudiante_01.html`](ejemplo_estudiante_01.html).
 
 ![Extracto del reporte HTML por estudiante (Fase 6), caso real del piloto](img/salida_html_ejemplo.png)
 
